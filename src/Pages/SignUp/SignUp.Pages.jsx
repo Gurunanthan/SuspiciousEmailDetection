@@ -2,8 +2,9 @@
 import React, { Component } from "react";
 import TextField from "../../Components/TextField/TextField.Component";
 import Header from "../../Components/Header/Header.Components";
-import { validateSignUp } from "./Validate"; // Update the path
-import "./SignUp.Styles.css"; // Import the CSS file for styling
+import { validateSignUp } from "./Validate";
+import { signUpWithEmail, signUpWithGoogle } from "../../Assets/Firebase/Firebase";
+import "./SignUp.Styles.css";
 
 class SignUp extends Component {
   constructor(props) {
@@ -28,12 +29,27 @@ class SignUp extends Component {
     this.setState((prevState) => ({ showPassword: !prevState.showPassword }));
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
     if (this.validateForm()) {
-      // Form is valid, you can proceed with submission or further actions
-      console.log("Form submitted:", this.state);
+      try {
+        await signUpWithEmail(this.state.email, this.state.password, this.state.name);
+        // Redirect after successful sign-up
+        this.props.history.push("/"); // Redirect to the root ("/") after sign-up
+      } catch (error) {
+        console.error("Error during sign-up:", error);
+      }
+    }
+  };
+
+  handleGoogleSignUp = async () => {
+    try {
+      await signUpWithGoogle().then(() => {      // Redirect after successful sign-up
+        this.props.history.push("/")
+      }); // Redirect to the root ("/") after Google sign-up
+    } catch (error) {
+      console.error("Error during Google sign-up:", error);
     }
   };
 
@@ -121,6 +137,9 @@ class SignUp extends Component {
                 />
                 <button type="submit" className="btn btn-primary">
                   Sign Up
+                </button>
+                <button type="button" className="btn btn-danger mt-2" onClick={this.handleGoogleSignUp}>
+                  Sign Up with Google
                 </button>
               </form>
             </div>
