@@ -12,7 +12,7 @@ const SideComponent = () => {
             Sign Up
           </Link>
           <Link
-            href="/login"
+            to="/SignIn"
             className="nav-link text-white mx-2"
             style={{ textDecoration: "none" }}
           >

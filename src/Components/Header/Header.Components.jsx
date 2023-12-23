@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import SideComponent from "../SideComponent/SideComponent.Components";
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +49,7 @@ class Header extends Component {
           <div className="d-flex">
             {user ? (
               <>
-                <span className="text-white mx-2">Welcome, {user.displayName || "Guest"}</span>
+                <span className="text-white mt-2">Welcome, {user.displayName || user.email || "Guest"}</span>
                 <button className="btn btn-danger mx-2" onClick={this.handleSignOut}>
                   Sign Out
                 </button>

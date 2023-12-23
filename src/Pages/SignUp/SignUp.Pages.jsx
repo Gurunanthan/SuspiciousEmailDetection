@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import TextField from "../../Components/TextField/TextField.Component";
 import Header from "../../Components/Header/Header.Components";
-import { validateSignUp } from "./Validate";
+import { validateSignUp } from "../../Assets/Validate/Validate";
 import { signUpWithEmail, signUpWithGoogle } from "../../Assets/Firebase/Firebase";
 import "./SignUp.Styles.css";
 
@@ -35,19 +35,19 @@ class SignUp extends Component {
     if (this.validateForm()) {
       try {
         await signUpWithEmail(this.state.email, this.state.password, this.state.name);
-        // Redirect after successful sign-up
-        this.props.history.push("/"); // Redirect to the root ("/") after sign-up
+        console.log("Sign-up with email successful!");
+        // Redirect or perform other actions upon successful sign-up
       } catch (error) {
-        console.error("Error during sign-up:", error);
+        console.error("Error during email sign-up:", error);
       }
     }
   };
 
   handleGoogleSignUp = async () => {
     try {
-      await signUpWithGoogle().then(() => {      // Redirect after successful sign-up
-        this.props.history.push("/")
-      }); // Redirect to the root ("/") after Google sign-up
+      await signUpWithGoogle();
+      console.log("Sign-up with Google successful!");
+      // Redirect or perform other actions upon successful sign-up
     } catch (error) {
       console.error("Error during Google sign-up:", error);
     }

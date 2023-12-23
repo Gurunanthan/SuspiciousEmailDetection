@@ -27,4 +27,18 @@ const validateSignUp = (data) => {
     return errors;
 };
 
-export { validateSignUp };
+const validateSignIn = (data) => {
+    const errors = {};
+
+    if (!data.email.trim()) {
+        errors.email = "Email is required";
+    }
+
+    if (!data.password.trim()) {
+        errors.password = "Password is required";
+    }
+
+    return errors;
+};
+
+export { validateSignUp, validateSignIn };
